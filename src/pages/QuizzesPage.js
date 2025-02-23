@@ -1,11 +1,8 @@
 import { useEffect, useState } from 'react';
-
 import toast from 'react-hot-toast';
-
 import { QuizList } from 'components/QuizList/QuizList';
-import { SearchBar } from 'components/SearchBar/SearchBar';
-
-import { deleteQuizById, fetchQuizzes } from './api';
+import { SearchBar } from 'components/SearchBar';
+import { deleteQuizById, fetchQuizzes } from 'api';
 // import { Routes, Route, Link } from 'react-router-dom';
 
 const getInitialFilters = () => {
@@ -48,12 +45,11 @@ export default function QuizzesPages() {
     localStorage.setItem('quiz-filters', JSON.stringify(filters));
   }, [filters]);
 
-  const changeLevelFilter = newLevel => {
-    setFilters(prevFilters => ({ ...prevFilters, level: newLevel }));
-  };
-
-  const changeTopicFilter = newTopic => {
-    setFilters(prevFilters => ({ ...prevFilters, level: newTopic }));
+  const changeFilters = (value, key) => {
+    setFilters(prevFilters => ({
+      ...prevFilters,
+      [key]: value,
+    }));
   };
 
   const resetFilters = () => {
@@ -96,8 +92,7 @@ export default function QuizzesPages() {
       <SearchBar
         level={filters.level}
         topic={filters.topic}
-        onChangeLevel={changeLevelFilter}
-        onChangeTopic={changeTopicFilter}
+        onChange={changeFilters}
         onReset={resetFilters}
       />
       {loading && <div>Loading...</div>}

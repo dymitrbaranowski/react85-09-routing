@@ -8,7 +8,7 @@ import { SearchBar } from './SearchBar';
 import { GlobalStyle } from './GlobalStyle';
 import { Layout } from './Layout';
 
-import { createQuiz, deleteQuizById, fetchQuizzes } from './api';
+import { createQuiz, deleteQuizById, fetchQuizzes } from '../api';
 import { Routes, Route, Link } from 'react-router-dom';
 import QuizzesPages from 'pages/QuizzesPage';
 
