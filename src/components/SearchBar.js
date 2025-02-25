@@ -4,7 +4,7 @@ export const SearchBar = ({ level, topic, onChange, onReset }) => {
       <input
         type="text"
         value={topic}
-        onChange={evt => onChange(evt.target.value)}
+        onChange={evt => onChange(evt.target.value, 'topic')}
         placeholder="Topic filter"
       />
       <select

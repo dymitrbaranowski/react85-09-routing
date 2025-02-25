@@ -1,16 +1,10 @@
-import { useEffect, useState } from 'react';
-
-import toast, { Toaster } from 'react-hot-toast';
-
-import { QuizForm } from './QuizForm/QuizForm';
-import { QuizList } from './QuizList/QuizList';
-import { SearchBar } from './SearchBar';
+import { Toaster } from 'react-hot-toast';
 import { GlobalStyle } from './GlobalStyle';
 import { Layout } from './Layout';
-
-import { createQuiz, deleteQuizById, fetchQuizzes } from '../api';
 import { Routes, Route, Link } from 'react-router-dom';
 import QuizzesPages from 'pages/QuizzesPage';
+import CreateQuizPage from 'pages/CreateQuizPage';
+import QuizDetailsPage from 'pages/QuizDetailsPage';
 
 export const App = () => {
   return (
@@ -24,9 +18,9 @@ export const App = () => {
         </li>
       </ul>
       <Routes>
-        <Route path="/create" element={<div>Create quiz Page</div>} />
+        <Route path="/create" element={<CreateQuizPage />} />
         <Route path="/quizzes" element={<QuizzesPages />} />
-        <Route path="/quizzes/:quizzes" element={<div>Single quiz Page</div>} />
+        <Route path="/quizzes/:quizId" element={<QuizDetailsPage />} />
       </Routes>
 
       <GlobalStyle />
@@ -49,21 +43,6 @@ export const App = () => {
 //       level: 'all',
 //     };
 //   });
-
-//   const addQuiz = async newQuiz => {
-//     try {
-//       setLoading(true);
-//       setError(false);
-
-//       const addedQuiz = await createQuiz(newQuiz);
-
-//       setquizItems(prevItems => [...prevItems, addedQuiz]);
-//     } catch (error) {
-//       setError(true);
-//     } finally {
-//       setLoading(false);
-//     }
-//   };
 
 //   return (
 // <Layout>
