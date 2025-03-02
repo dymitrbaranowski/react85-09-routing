@@ -10,22 +10,28 @@ export const SearchBar = ({ onChange, onReset }) => {
       <input
         type="text"
         value={topic}
-        onChange={evt =>
-          setSearchParams({
-            topic: evt.target.value,
-            level,
-          })
-        }
+        onChange={evt => {
+          searchParams.set('topic', evt.target.value);
+          setSearchParams(searchParams);
+
+          // setSearchParams({
+          //   topic: evt.target.value,
+          //   level,
+          // })
+        }}
         placeholder="Topic filter"
       />
       <select
         value={level}
-        onChange={evt =>
-          setSearchParams({
-            topic,
-            level: evt.target.value,
-          })
-        }
+        onChange={evt => {
+          searchParams.set('level', evt.target.value);
+
+          setSearchParams(searchParams);
+          // setSearchParams({
+          //   topic,
+          //   level: evt.target.value,
+          // })
+        }}
       >
         <option value="all">All</option>
         <option value="beginner">Beginner</option>
