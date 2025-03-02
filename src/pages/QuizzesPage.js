@@ -3,25 +3,21 @@ import toast from 'react-hot-toast';
 import { QuizList } from 'components/QuizList/QuizList';
 import { SearchBar } from 'components/SearchBar';
 import { deleteQuizById, fetchQuizzes } from 'api';
+import { useSearchParams } from 'react-router-dom';
 // import { Routes, Route, Link } from 'react-router-dom';
 
-const getInitialFilters = () => {
-  const savedFilters = localStorage.getItem('quiz-filters');
-  if (savedFilters !== null) {
-    return JSON.parse(savedFilters);
-  }
-
-  return {
-    topic: '',
-    level: 'all',
-  };
-};
-
-export default function QuizzesPages() {
+export default function QuizzesPage() {
   const [quizItems, setquizItems] = useState([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(false);
-  const [filters, setFilters] = useState(getInitialFilters);
+
+  // const [searchParams, setSearchParams] = useSearchParams();
+  // console.log(searchParams.get('b'));
+
+  // const [filters, setFilters] = useState({
+  //   topic: '',
+  //   level: 'all',
+  // });
 
   // HTTP запрос за всеми квизами
   useEffect(() => {
@@ -40,23 +36,22 @@ export default function QuizzesPages() {
     getQuizzes();
   }, []);
 
-  // Пишем фильтры в LS
-  useEffect(() => {
-    localStorage.setItem('quiz-filters', JSON.stringify(filters));
-  }, [filters]);
-
   const changeFilters = (value, key) => {
-    setFilters(prevFilters => ({
-      ...prevFilters,
-      [key]: value,
-    }));
+    // setSearchParams({
+    //   a: 20,
+    //   b: searchParams.get('b'),
+    // });
+    // setFilters(prevFilters => ({
+    //   ...prevFilters,
+    //   [key]: value,
+    // }));
   };
 
   const resetFilters = () => {
-    setFilters({
-      topic: '',
-      level: 'all',
-    });
+    // setFilters({
+    //   topic: '',
+    //   level: 'all',
+    // });
   };
 
   const deleteQuiz = async quizId => {
@@ -76,29 +71,24 @@ export default function QuizzesPages() {
     }
   };
 
-  const visibleItems = quizItems.filter(quiz => {
-    const hasTopic = quiz.topic
-      .toLowerCase()
-      .includes(filters.topic.toLowerCase());
+  // const visibleItems = quizItems.filter(quiz => {
+  //   const hasTopic = quiz.topic
+  //     .toLowerCase()
+  //     .includes(filters.topic.toLowerCase());
 
-    if (filters.level === 'all') {
-      return hasTopic;
-    }
-    return hasTopic && quiz.level === filters.level;
-  });
+  //   if (filters.level === 'all') {
+  //     return hasTopic;
+  //   }
+  //   return hasTopic && quiz.level === filters.level;
+  // });
 
   return (
     <div>
-      <SearchBar
-        level={filters.level}
-        topic={filters.topic}
-        onChange={changeFilters}
-        onReset={resetFilters}
-      />
+      <SearchBar />
       {loading && <div>Loading...</div>}
       {error && !loading && <div>Something went wrong...</div>}
-      {visibleItems.length > 0 && (
-        <QuizList items={visibleItems} onDelete={deleteQuiz} />
+      {quizItems.length > 0 && (
+        <QuizList items={quizItems} onDelete={deleteQuiz} />
       )}
     </div>
   );

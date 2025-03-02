@@ -1,15 +1,31 @@
-export const SearchBar = ({ level, topic, onChange, onReset }) => {
+import { useSearchParams } from 'react-router-dom';
+
+export const SearchBar = ({ onChange, onReset }) => {
+  const [searchParams, setSearchParams] = useSearchParams();
+  const topic = searchParams.get('topic') ?? '';
+  const level = searchParams.get('level') ?? 'all';
+
   return (
     <div>
       <input
         type="text"
         value={topic}
-        onChange={evt => onChange(evt.target.value, 'topic')}
+        onChange={evt =>
+          setSearchParams({
+            topic: evt.target.value,
+            level,
+          })
+        }
         placeholder="Topic filter"
       />
       <select
         value={level}
-        onChange={evt => onChange(evt.target.value, 'level')}
+        onChange={evt =>
+          setSearchParams({
+            topic,
+            level: evt.target.value,
+          })
+        }
       >
         <option value="all">All</option>
         <option value="beginner">Beginner</option>
