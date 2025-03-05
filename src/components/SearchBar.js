@@ -4,6 +4,7 @@ export const SearchBar = ({ onChange, onReset }) => {
   const [searchParams, setSearchParams] = useSearchParams();
   const topic = searchParams.get('topic') ?? '';
   const level = searchParams.get('level') ?? 'all';
+  console.log(topic, level);
 
   return (
     <div>

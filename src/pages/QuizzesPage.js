@@ -11,8 +11,8 @@ export default function QuizzesPage() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(false);
 
-  // const [searchParams, setSearchParams] = useSearchParams();
-  // console.log(searchParams.get('b'));
+  const [searchParams, setSearchParams] = useSearchParams();
+  console.log(searchParams.get('b'));
 
   // const [filters, setFilters] = useState({
   //   topic: '',
@@ -37,10 +37,10 @@ export default function QuizzesPage() {
   }, []);
 
   const changeFilters = (value, key) => {
-    // setSearchParams({
-    //   a: 20,
-    //   b: searchParams.get('b'),
-    // });
+    setSearchParams({
+      a: 20,
+      b: searchParams.get('b'),
+    });
     // setFilters(prevFilters => ({
     //   ...prevFilters,
     //   [key]: value,
@@ -85,6 +85,8 @@ export default function QuizzesPage() {
   return (
     <div>
       <SearchBar />
+      onCgange={changeFilters}
+      onReset={resetFilters}
       {loading && <div>Loading...</div>}
       {error && !loading && <div>Something went wrong...</div>}
       {quizItems.length > 0 && (
